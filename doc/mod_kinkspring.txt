@@ -1,0 +1,61 @@
+Capacitors
+----------
+Blocks that sit inline of buildcraft energy. Receives energy on one side and outputs it on
+the opposite side, buffering in between. Use a wrench to rotate.
+
+By default all capacitors charge up to a certain amount of energy before they begin to
+discharge. Depending on the type of capacitor, this behavior may or may not be configurable.
+Additionally, all capacitors have certain behaviors that are activated when they start to
+receive power in excess of their storage capacity.
+
+Capacitors have configurable redstone behavior:
+ - do nothing (default)
+ - emit redstone when full
+ - emit redstone unless full
+ - emit power when redstone is applied
+ - emit power unless redstone is applied
+
+Gearbox
+-------
+Blocks that sit inline of buildcraft energy. Receive energy on any one side and output on any
+one side. Name and final behavior pending.
+
+Gears require a minimum amount of built up energy before turning. They then output that same
+amount of energy over a set period. For example, a gearbox with an inertia rating of 30MJ will
+wait until it has received 30MJ before outputting juice.
+
+Once the gears start turning, their output ratio determines the size of output pulses. This
+means that a 1:3MJ gearbox will output 3MJ every 3 ticks. A 2:10MJ gearbox would output 10MJ
+pulses every 5 ticks.
+
+Feature Plan
+------------
+v0.1
+	- spring capacitor:
+		- medium energy: 100k MJ capacity
+			- output variable 3-8MJ/t (depending on total pressure)
+			- autodischarge at 80%
+		- recipe: 2 pistons, 2 iron gears, wood conductive pipe, gold conductive pipe, 3 iron
+		- overcharge behavior: 50% of overcharge energy leaks through, 50% is lost
+v0.2
+	- spring canister:
+		- low energy: 40k MJ capacity
+		- recipe: 6 iron, iron gear, 2 redstone
+	- canister capacitor:
+		- uses interchangeable canisters for power
+v0.3
+	- steam canister
+	- steam capacitor
+v0.4
+	- diode pipe
+		- one-way conductive pipe
+	- clockwork capacitor
+		- bleeds a very small amount of power to output power at a configurable rate
+v0.5
+	? dielectric canister/capacitor
+	? galvanic capacitor
+
+Wishlist
+--------
+	- animal power
+	- canister powered tools and weapons
