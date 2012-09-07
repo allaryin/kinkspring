@@ -2,7 +2,7 @@ package net.minecraft.src;
 
 import java.io.File;
 
-import net.minecraft.src.Minecraft;
+import net.minecraft.client.Minecraft;
 import net.minecraft.src.forge.MinecraftForgeClient;
 import net.minecraft.src.forge.NetworkMod;
 

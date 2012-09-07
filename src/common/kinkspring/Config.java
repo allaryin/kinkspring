@@ -17,10 +17,9 @@ public enum Config {
 		_conf = null;
 	}
 
-	public void init(File minecraftDir, String path) {
+	public void init(File minecraftDir, String path) throws Exception {
 		if( _conf != null ) {
 			throw new Exception("Attempt to re-initialize.");
-			return;
 		}
 
 		final File file;
