@@ -31,31 +31,45 @@ pulses every 5 ticks.
 Feature Plan
 ------------
 v0.1
-	- spring capacitor:
+	- spring capacitor
 		- medium energy: 100k MJ capacity
 			- output variable 3-8MJ/t (depending on total pressure)
 			- autodischarge at 80%
 		- recipe: 2 pistons, 2 iron gears, wood conductive pipe, gold conductive pipe, 3 iron
 		- overcharge behavior: 50% of overcharge energy leaks through, 50% is lost
 v0.2
-	- spring canister:
+	- spring canister
 		- low energy: 40k MJ capacity
 		- recipe: 6 iron, iron gear, 2 redstone
-	- canister capacitor:
+	- canister capacitor
 		- uses interchangeable canisters for power
 v0.3
 	- steam canister
+		- med-low energy: 50k MJ capacity
 	- steam capacitor
+		- high energy: 400k MJ capacity
+			- output linear 5MJ/t
+			- autodischarge at 50%
+		- overcharge behavior: explosion
 v0.4
-	- diode pipe
+	? diode pipe
 		- one-way conductive pipe
 	- clockwork capacitor
 		- bleeds a very small amount of power to output power at a configurable rate
-v0.5
-	? dielectric canister/capacitor
-	? galvanic capacitor
 
 Wishlist
 --------
+	? dielectric canister/capacitor
+	? galvanic capacitor
 	- animal power
+		- draft animal strapped to a wheel
+		- probably "fueled" by grain
+		- http://en.wikipedia.org/wiki/Horse_mill
+	- caloric energy
+		- push a button, convert personal food energy into MJ
+		- wear shoes that increase your food consumption but wind a spring as you walk
+			- equivalent to iron armor
+	? stirling or similar engine
 	- canister powered tools and weapons
+		- pneumatic hammer
+		- spring/steam gun
