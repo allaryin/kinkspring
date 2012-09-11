@@ -32,5 +32,24 @@ public class BlockCapacitor extends Block {
 	
 	// TODO: detect neighbor block changes
 	
-	// TODO: texture stuff
+	// If this function is not implemented, it uses the
+	// constructor values.
+	@Override
+	public int getBlockTextureFromSide(int side) {
+		// We want the texture next to our default texture from this block for the bottom and top side
+		// so we just add 1 when the side is 0 or 1 else we return the default one
+		switch(side){
+		case 0: // -Y (bottom side)
+			return this.blockIndexInTexture + 3;
+		case 1: // +Y (top side)
+			return this.blockIndexInTexture + 2;
+		}
+		return this.blockIndexInTexture;
+
+	}
+
+	@Override
+	public String getTextureFile(){
+		return "/kinkspring/textures/blocks.png"; //return the block texture where the block texture is saved in
+	}
 }

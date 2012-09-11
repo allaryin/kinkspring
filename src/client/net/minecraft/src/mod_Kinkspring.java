@@ -42,7 +42,7 @@ public class mod_Kinkspring extends NetworkMod {
 	
 	private void preloadTextures() {
 		System.out.println("preloadTextures");
-		// MinecraftForgeClient.preloadTexture("/kinkspring/textures/blocks.png");
+		MinecraftForgeClient.preloadTexture("/kinkspring/textures/blocks.png");
 	}
 	
 	private void registerBlocks() {
