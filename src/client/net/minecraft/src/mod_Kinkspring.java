@@ -35,19 +35,20 @@ public class mod_Kinkspring extends NetworkMod {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			preloadTextures();
-			//registerBlocks();
 		}
+		preloadTextures();
+		registerBlocks();
 	}
 	
 	private void preloadTextures() {
 		System.out.println("preloadTextures");
 		// MinecraftForgeClient.preloadTexture("/kinkspring/textures/blocks.png");
 	}
-	/*
+	
 	private void registerBlocks() {
 		System.out.println("registerBlocks");
 		KinkspringBlocks.springCapacitor.block = new BlockCapacitor(KinkspringBlocks.springCapacitor.id);
+		
 		int c = 0;
 		for( KinkspringBlocks blocks : KinkspringBlocks.values() ) {
 			final Block block = blocks.block;
@@ -60,8 +61,8 @@ public class mod_Kinkspring extends NetworkMod {
 			}
 		}
 		System.out.println("registerd "+c+" blocks");
+		
 	}
-	*/
 	
 	public boolean clientSideRequired() {
 		return true;

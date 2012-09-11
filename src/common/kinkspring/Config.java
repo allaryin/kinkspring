@@ -39,6 +39,7 @@ public enum Config {
 	
 	private void populateDefaults() {
 		Property prop = _conf.getOrCreateIntProperty( "capacitor", Configuration.CATEGORY_BLOCK, 1234 );
+		KinkspringBlocks.springCapacitor.id = prop.getInt();
 		KinkspringBlocks.springCapacitor.name = "block.capacitor";
 	}	
 
