@@ -2,6 +2,8 @@ package kinkspring;
 
 import java.io.File;
 
+import kinkspring.blocks.KinkspringBlocks;
+
 import net.minecraft.src.Block;
 import net.minecraft.src.forge.Configuration;
 import net.minecraft.src.forge.Property;
@@ -37,6 +39,7 @@ public enum Config {
 	
 	private void populateDefaults() {
 		Property prop = _conf.getOrCreateIntProperty( "capacitor", Configuration.CATEGORY_BLOCK, 1234 );
+		KinkspringBlocks.springCapacitor.name = "block.capacitor";
 	}	
 
 	public static String getVersion() {
@@ -51,6 +54,7 @@ public enum Config {
 		Property versionProp = _conf.getOrCreateProperty("version", Configuration.CATEGORY_GENERAL, "0.0");
 		versionProp.value = getVersion();
 		_conf.save();
+		System.out.println("wrote config "+getVersion());
 	}
 	
 }
