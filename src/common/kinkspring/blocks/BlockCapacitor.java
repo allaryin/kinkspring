@@ -12,11 +12,11 @@ public class BlockCapacitor extends Block {
 		super(blockID, Material.iron);
 		setHardness(1.5F);
 	}
-	
+	/*
 	public TileEntity getBlockEntity() {
 		return new TileCapacitor();
 	}
-	
+	*/
 	public boolean blockActivated( World w, int x, int y, int z, EntityPlayer player ) {
 		// don't do anything if they shift-click on the block
 		if( player.isSneaking() ) {
