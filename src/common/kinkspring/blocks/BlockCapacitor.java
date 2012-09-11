@@ -50,6 +50,6 @@ public class BlockCapacitor extends Block {
 
 	@Override
 	public String getTextureFile(){
-		return "/kinkspring/textures/blocks.png"; //return the block texture where the block texture is saved in
+		return "/textures/blocks.png"; //return the block texture where the block texture is saved in
 	}
 }
