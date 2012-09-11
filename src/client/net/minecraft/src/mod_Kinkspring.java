@@ -9,6 +9,7 @@ import net.minecraft.src.forge.NetworkMod;
 import kinkspring.Config;
 import kinkspring.blocks.BlockCapacitor;
 import kinkspring.blocks.KinkspringBlocks;
+import kinkspring.blocks.TileCapacitor;
 
 public class mod_Kinkspring extends NetworkMod {
 		
@@ -35,18 +36,19 @@ public class mod_Kinkspring extends NetworkMod {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			preloadTextures();
+			register();
 		}
-		preloadTextures();
-		registerBlocks();
 	}
 	
 	private void preloadTextures() {
 		System.out.println("preloadTextures");
-		MinecraftForgeClient.preloadTexture("/kinkspring/textures/blocks.png");
+		MinecraftForgeClient.preloadTexture("/textures/blocks.png");
 	}
 	
-	private void registerBlocks() {
-		System.out.println("registerBlocks");
+	private void register() {
+		System.out.println("register - blocks");
 		KinkspringBlocks.springCapacitor.block = new BlockCapacitor(KinkspringBlocks.springCapacitor.id);
 		
 		int c = 0;
@@ -62,6 +64,8 @@ public class mod_Kinkspring extends NetworkMod {
 		}
 		System.out.println("registerd "+c+" blocks");
 		
+		System.out.println("register - tiles");
+		ModLoader.registerTileEntity(TileCapacitor.class, "kinkspring.tile.capacitor");
 	}
 	
 	public boolean clientSideRequired() {
