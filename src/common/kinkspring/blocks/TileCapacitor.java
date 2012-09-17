@@ -3,6 +3,8 @@ package kinkspring.blocks;
 import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.buildcraft.api.IPowerReceptor;
+import net.minecraft.src.buildcraft.api.Orientations;
+import net.minecraft.src.buildcraft.api.Position;
 import net.minecraft.src.buildcraft.api.PowerFramework;
 import net.minecraft.src.buildcraft.api.PowerProvider;
 
@@ -20,9 +22,23 @@ public class TileCapacitor extends TileEntity implements IPowerReceptor {
 	
 	@Override
 	public void updateEntity() {
-		if( this.worldObj.getWorldTime() % 40l == 0l ) {
+		boolean gotRedstone = this.worldObj.isBlockIndirectlyGettingPowered(this.xCoord, this.yCoord, this.zCoord);
+		if( gotRedstone && this.powerProvider.energyStored > 0 ) {
+			// currently, we are always facing directly up
+			Position pos = new Position(this.xCoord,this.yCoord,this.zCoord,Orientations.YPos);
+			pos.moveForwards(1.0);
+			// check what we're pointed at
+			TileEntity poweredTile = this.worldObj.getBlockTileEntity((int)pos.x, (int)pos.y, (int)pos.z);
+			if( poweredTile != null && (poweredTile instanceof IPowerReceptor) ) {
+				PowerProvider provider = ((IPowerReceptor)poweredTile).getPowerProvider();
+				provider.receiveEnergy(this.powerProvider.useEnergy(1, 5, true));
+			}
+		}
+		
+		if( this.worldObj.getWorldTime() % 200l == 0l ) {
 			System.out.println("updateEntity - "+powerProvider.energyStored);
 		}
+		
 		super.updateEntity();
 	}
 	
@@ -54,5 +70,7 @@ public class TileCapacitor extends TileEntity implements IPowerReceptor {
 	public int powerRequest() {
 		return getPowerProvider().maxEnergyReceived;
 	}
+	
+	
 
 }

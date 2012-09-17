@@ -32,19 +32,23 @@ public class mod_Kinkspring extends NetworkMod {
 		if(!initialized && !ModLoader.isModLoaded("mod_Kinkspring")){
 			try {
 				Config.INSTANCE.init(this.path, "config/kinkspring.cfg");
+				preloadTextures();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+
 			}
-			
-			preloadTextures();
-			register();
 		}
 	}
 	
 	private void preloadTextures() {
 		System.out.println("preloadTextures");
 		MinecraftForgeClient.preloadTexture("/textures/blocks.png");
+	}
+	
+	public void modsLoaded() {
+		
+		register();
 	}
 	
 	private void register() {
