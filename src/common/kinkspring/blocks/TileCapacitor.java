@@ -1,5 +1,6 @@
 package kinkspring.blocks;
 
+import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.buildcraft.api.IPowerReceptor;
 import net.minecraft.src.buildcraft.api.PowerFramework;
@@ -12,8 +13,17 @@ public class TileCapacitor extends TileEntity implements IPowerReceptor {
 	private PowerProvider powerProvider;
 	
 	public TileCapacitor() {
+		System.out.println( "new TileCapacitor..." );
 		this.powerProvider = PowerFramework.currentFramework.createPowerProvider();
 		this.powerProvider.configure(2000, 1, 5, 10, 50000);	// random values
+	}
+	
+	@Override
+	public void updateEntity() {
+		if( this.worldObj.getWorldTime() % 40l == 0l ) {
+			System.out.println("updateEntity - "+powerProvider.energyStored);
+		}
+		super.updateEntity();
 	}
 	
 	@Override
@@ -25,10 +35,19 @@ public class TileCapacitor extends TileEntity implements IPowerReceptor {
 	public PowerProvider getPowerProvider() {
 		return this.powerProvider;
 	}
+	
+	public void readFromNBT(NBTTagCompound tag) {
+		super.readFromNBT(tag);
+		powerProvider.energyStored = tag.getInteger("power");
+	}
+	public void writeToNBT(NBTTagCompound tag) {
+		super.writeToNBT(tag);
+		tag.setInteger("power", powerProvider.energyStored);
+	}
 
 	@Override
 	public void doWork() {
-		// TODO Auto-generated method stub
+		System.out.println("doWork");
 	}
 
 	@Override

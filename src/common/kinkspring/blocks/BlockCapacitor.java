@@ -1,12 +1,14 @@
 package kinkspring.blocks;
 
 import net.minecraft.src.Block;
+import net.minecraft.src.BlockContainer;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 
-public class BlockCapacitor extends Block {
+public class BlockCapacitor extends BlockContainer {
 
 	public BlockCapacitor(int blockID) {
 		super(blockID, 0, Material.iron);
@@ -14,11 +16,14 @@ public class BlockCapacitor extends Block {
 		setHardness(1.5F);
 		setResistance(1F);
 		setStepSound(Block.soundMetalFootstep);
-		setBlockName("capacitor");
+		setBlockName("kinkspring.capacitor");
 	}
 	
 	public TileEntity getBlockEntity() {
 		return new TileCapacitor();
+	}
+	public TileEntity getBlockEntity(int meta) {
+		return getBlockEntity();
 	}
 	
 	public boolean blockActivated( World w, int x, int y, int z, EntityPlayer player ) {
@@ -45,7 +50,6 @@ public class BlockCapacitor extends Block {
 			return this.blockIndexInTexture + 2;
 		}
 		return this.blockIndexInTexture;
-
 	}
 
 	@Override

@@ -64,8 +64,19 @@ public class mod_Kinkspring extends NetworkMod {
 		}
 		System.out.println("registerd "+c+" blocks");
 		
+		// register recipe
+		System.out.println("register - recipes");
+		ModLoader.addRecipe(new ItemStack(KinkspringBlocks.springCapacitor.block,1), new Object[] {
+			"XPG", "III", "WPX",
+			Character.valueOf('X'), new ItemStack(Block.blockSteel,1),	// iron gear
+			Character.valueOf('P'), new ItemStack(Block.pistonBase,1),
+			Character.valueOf('G'), new ItemStack(Item.ingotGold,1),	// gold conductive pipe
+			Character.valueOf('W'), new ItemStack(Block.wood,1),		// wood conductive pipe
+			Character.valueOf('I'), new ItemStack(Item.ingotIron,1)
+		});
+		
 		System.out.println("register - tiles");
-		ModLoader.registerTileEntity(TileCapacitor.class, "kinkspring.tile.capacitor");
+		ModLoader.registerTileEntity(TileCapacitor.class, "kinkspring.capacitor");
 	}
 	
 	public boolean clientSideRequired() {
