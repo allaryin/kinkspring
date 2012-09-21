@@ -5,8 +5,10 @@ import net.minecraft.src.BlockContainer;
 import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Material;
+import net.minecraft.src.ModLoader;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
+import net.minecraft.src.buildcraft.api.APIProxy;
 
 public class BlockCapacitor extends BlockContainer {
 
@@ -32,6 +34,13 @@ public class BlockCapacitor extends BlockContainer {
 			return false;
 		}
 		// TODO: open the GUI for the entity
+		TileCapacitor tile = (TileCapacitor) w.getBlockTileEntity(x, y, z);
+		
+		if ( tile != null ) {
+			if ( !APIProxy.isClient(tile.worldObj) )
+				ModLoader.openGUI(player,new BlockCapacitorGui(player, tile));
+			return true;
+		}
 		return true;
 	}
 	
