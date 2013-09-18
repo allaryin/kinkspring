@@ -12,7 +12,7 @@ import kinkspring.blocks.KinkspringBlocks;
 import kinkspring.blocks.TileCapacitor;
 import kinkspring.integration.BuildcraftIntegrator;
 
-public class mod_Kinkspring extends NetworkMod {
+public class Kinkspring extends NetworkMod {
 		
 	//CLIENT SIDE
 	public static boolean initialized = false;
