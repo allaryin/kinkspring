@@ -1,6 +1,6 @@
 package kinkspring.blocks;
 
-import net.minecraft.src.Block;
+import net.minecraft.block.Block;
 
 public enum KinkspringBlocks {
 	springCapacitor;
