@@ -29,6 +29,25 @@ public class KBlock extends BlockContainer {
 	}
 
 	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z,
+			int neighborID) {
+		KTileEntity tile = (KTileEntity) world.getBlockTileEntity(x, y, z);
+		if (tile != null) {
+			tile.pollRedstoneState();
+		}
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, int metadata) {
+		try {
+			return tileClass.newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
+		}
+		return new KTileEntity();
+	}
+
+	@Override
 	public TileEntity createNewTileEntity(World world) {
 		return null;
 	}
