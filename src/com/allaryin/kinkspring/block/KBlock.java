@@ -12,12 +12,17 @@ public class KBlock extends BlockContainer {
 
 	protected int							_bid;		// internal block id
 	protected Class<? extends KTileEntity>	tileClass;
+	protected Blocks						enumEntry;
 
 	public KBlock(int id, int bid, Material mat) {
 		super(id, mat);
 		_bid = bid;
 		setUnlocalizedName("kinkspring.block." + _bid);
 		setCreativeTab(CreativeTabs.tabBlock);
+	}
+
+	public void setEnumEntry(Blocks block) {
+		enumEntry = block;
 	}
 
 	public int getBID() {
@@ -39,17 +44,17 @@ public class KBlock extends BlockContainer {
 
 	@Override
 	public TileEntity createTileEntity(World world, int metadata) {
+		return createNewTileEntity(world);
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world) {
 		try {
 			return tileClass.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return new KTileEntity();
-	}
-
-	@Override
-	public TileEntity createNewTileEntity(World world) {
-		return null;
 	}
 
 }

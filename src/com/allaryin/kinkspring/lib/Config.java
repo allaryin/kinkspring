@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
@@ -29,6 +28,8 @@ public enum Config {
 
 	public static int		BLOCK_PREFIX			= DEFAULT_BLOCK_PREFIX;
 	public static int		ITEM_PREFIX				= DEFAULT_ITEM_PREFIX;
+	
+	public static final String	TEXTURE_PATH			= "kinkspring";
 
 	private Configuration _conf;
 	private Config() {
@@ -95,11 +96,12 @@ public enum Config {
 				ITEM_PREFIX + iid);
 		// Handle all of the ID offset nonsense
 		// NOTE: Do we need to do this? Do we want to?
-		propID.set(propID.getInt() - 256);
+		final int offsetID = propID.getInt() - 256;
 
 		final KItem item;
 		try {
-			item = itemClass.getConstructor(Integer.class,Integer.class).newInstance(propID.getInt(),iid);
+			item = itemClass.getConstructor(Integer.class, Integer.class)
+					.newInstance(offsetID, iid);
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
@@ -107,6 +109,7 @@ public enum Config {
 			return;
 		}
 		itemEnum.setItem(item);
+		item.setEnumEntry(itemEnum);
 
 		// TODO: id conflict resolution & reservation
 		GameRegistry.registerItem(item, Version.MOD_ID + name);
@@ -138,6 +141,7 @@ public enum Config {
 			block.setTileClass(tileClass);
 		}
 		blockEnum.setBlock(block);
+		block.setEnumEntry(blockEnum);
 
 		// TODO: id conflict resolution & reservation
 		GameRegistry.registerBlock(block, Version.MOD_ID + name);

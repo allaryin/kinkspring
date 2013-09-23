@@ -3,10 +3,6 @@ package com.allaryin.kinkspring.item;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.minecraft.item.Item;
-
-import com.allaryin.kinkspring.block.Blocks;
-import com.allaryin.kinkspring.block.KBlock;
 import com.allaryin.kinkspring.lib.Localization;
 
 public enum Items {
