@@ -4,7 +4,6 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
-import net.minecraft.block.material.Material;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
@@ -135,8 +134,17 @@ public enum Config {
 				BLOCK_PREFIX + bid);
 
 		KBlock block;
-		// TODO: switch to actual instances of specified class as per initItem above
-		block = new KBlock(propID.getInt(), bid, Material.rock);
+		try {
+			block = blockClass.getConstructor(Integer.class, Integer.class)
+					.newInstance(propID.getInt(), bid);
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			Kinkspring.log
+					.log(Level.SEVERE, "Unable to instantiate " + name, e);
+			return;
+		}
+
 		if (tileClass != null) {
 			block.setTileClass(tileClass);
 		}
