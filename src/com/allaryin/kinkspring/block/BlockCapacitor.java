@@ -8,7 +8,6 @@ public class BlockCapacitor extends KBlock {
 		super(id, bid, Material.iron);
 		setHardness(0.5F);
 		setStepSound(soundMetalFootstep);
-		setUnlocalizedName("kinkspring.machine.capacitor");
 	}
 
 }

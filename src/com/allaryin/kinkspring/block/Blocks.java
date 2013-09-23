@@ -3,6 +3,8 @@ package com.allaryin.kinkspring.block;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.allaryin.kinkspring.lib.Localization;
+
 public enum Blocks {
 	springCapacitor(0);
 
@@ -19,7 +21,7 @@ public enum Blocks {
 	public void setBlock(KBlock block) {
 		this.block = block;
 		_bidMap.put(bid, this);
-		block.setUnlocalizedName("kinkspring.block." + this.name());
+		block.setUnlocalizedName(Localization.NS + this.name());
 	}
 
 	public static Blocks getBlockByBID(int bid) {

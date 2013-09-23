@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 
 import com.allaryin.kinkspring.block.Blocks;
 import com.allaryin.kinkspring.block.KBlock;
+import com.allaryin.kinkspring.lib.Localization;
 
 public enum Items {
 	spring(0);
@@ -24,7 +25,7 @@ public enum Items {
 	public void setItem(KItem item) {
 		this.item = item;
 		_iidMap.put(iid, this);
-		item.setUnlocalizedName("kinkspring.item." + this.name());
+		item.setUnlocalizedName(Localization.NS + this.name());
 	}
 
 	public static Items getItemByIID(int iid) {

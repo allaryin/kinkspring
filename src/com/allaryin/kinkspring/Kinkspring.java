@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.allaryin.kinkspring.lib.Config;
+import com.allaryin.kinkspring.lib.Localization;
 import com.allaryin.kinkspring.lib.Version;
 import com.allaryin.kinkspring.net.CommonProxy;
 import com.allaryin.kinkspring.net.KPacketHandler;
@@ -50,6 +51,11 @@ public class Kinkspring {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		// TODO: init localization
+		try {
+			Localization.init();
+		} catch (Exception e) {
+			log.log(Level.SEVERE, "Unable to initialize localization...", e);
+		}
 	}
 
 	@EventHandler
