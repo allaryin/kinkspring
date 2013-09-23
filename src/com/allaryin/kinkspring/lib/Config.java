@@ -91,8 +91,11 @@ public enum Config {
 			return;
 		}
 
-		final Property propID = _conf.get(Configuration.CATEGORY_ITEM, name + ".id",
+		final Property propID = _conf.getItem(Configuration.CATEGORY_ITEM, name + ".id",
 				ITEM_PREFIX + iid);
+		// Handle all of the ID offset nonsense
+		// NOTE: Do we need to do this? Do we want to?
+		propID.set(propID.getInt() - 256);
 
 		final KItem item;
 		try {
@@ -125,7 +128,7 @@ public enum Config {
 			return;
 		}
 
-		Property propID = _conf.get(Configuration.CATEGORY_BLOCK, name + ".id",
+		Property propID = _conf.getBlock(Configuration.CATEGORY_BLOCK, name + ".id",
 				BLOCK_PREFIX + bid);
 
 		KBlock block;
