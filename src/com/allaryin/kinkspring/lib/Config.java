@@ -1,8 +1,11 @@
 package com.allaryin.kinkspring.lib;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.util.logging.Level;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
@@ -10,6 +13,9 @@ import com.allaryin.kinkspring.Kinkspring;
 import com.allaryin.kinkspring.block.BlockCapacitor;
 import com.allaryin.kinkspring.block.Blocks;
 import com.allaryin.kinkspring.block.KBlock;
+import com.allaryin.kinkspring.item.ItemSpring;
+import com.allaryin.kinkspring.item.Items;
+import com.allaryin.kinkspring.item.KItem;
 import com.allaryin.kinkspring.tile.KTileEntity;
 import com.allaryin.kinkspring.tile.TileCapacitor;
 
@@ -40,9 +46,9 @@ public enum Config {
 		_conf = new Configuration(file);
 		_conf.load();
 
-		BLOCK_PREFIX = _conf.get(Configuration.CATEGORY_BLOCK, "prefix",
+		BLOCK_PREFIX = _conf.get(Configuration.CATEGORY_GENERAL, "block.prefix",
 				DEFAULT_BLOCK_PREFIX).getInt();
-		ITEM_PREFIX = _conf.get(Configuration.CATEGORY_ITEM, "prefix",
+		ITEM_PREFIX = _conf.get(Configuration.CATEGORY_GENERAL, "item.prefix",
 				DEFAULT_ITEM_PREFIX).getInt();
 
 		initItems();
@@ -52,6 +58,9 @@ public enum Config {
 
 	private void initItems() {
 		Kinkspring.log.info("Initializing items...");
+		
+		initItem(Items.spring, ItemSpring.class);
+		
 		Kinkspring.log.fine("Items done.");
 	}
 	
@@ -67,6 +76,39 @@ public enum Config {
 	private void initRecipes() {
 		Kinkspring.log.info("Initializing recipes...");
 		Kinkspring.log.fine("Recipes done.");
+	}
+	
+	private void initItem(Items itemEnum,
+			Class<? extends KItem> itemClass) {
+		final int iid = itemEnum.iid;
+		final String name = itemEnum.name();
+
+		final Property propEnabled = _conf.get(Configuration.CATEGORY_ITEM, name
+				+ ".enabled", true);
+		if (!propEnabled.getBoolean(true)) {
+			Kinkspring.log.fine("Skipping item " + name
+					+ ", disabled in config");
+			return;
+		}
+
+		final Property propID = _conf.get(Configuration.CATEGORY_ITEM, name + ".id",
+				ITEM_PREFIX + iid);
+
+		final KItem item;
+		try {
+			item = itemClass.getConstructor(Integer.class,Integer.class).newInstance(propID.getInt(),iid);
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e) {
+			Kinkspring.log.log(Level.SEVERE, "Unable to instantiate "+name,e);
+			return;
+		}
+		itemEnum.setItem(item);
+
+		// TODO: id conflict resolution & reservation
+		GameRegistry.registerItem(item, Version.MOD_ID + name);
+
+		Kinkspring.log.fine("Initialized item " + name);
 	}
 
 	private void initBlock(Blocks blockEnum,
@@ -87,6 +129,7 @@ public enum Config {
 				BLOCK_PREFIX + bid);
 
 		KBlock block;
+		// TODO: switch to actual instances of specified class as per initItem above
 		block = new KBlock(propID.getInt(), bid, Material.rock);
 		if (tileClass != null) {
 			block.setTileClass(tileClass);
