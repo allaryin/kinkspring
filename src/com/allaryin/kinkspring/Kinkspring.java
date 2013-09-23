@@ -1,15 +1,18 @@
 package com.allaryin.kinkspring;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.allaryin.kinkspring.lib.Config;
 import com.allaryin.kinkspring.lib.Version;
+import com.allaryin.kinkspring.net.CommonProxy;
+import com.allaryin.kinkspring.net.KPacketHandler;
 
 import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -21,6 +24,9 @@ public class Kinkspring {
 	@Instance(Version.CHANNEL)
 	public static Kinkspring	instance;
 
+	@SidedProxy(clientSide = "com.allaryin.kinkspring.net.ClientProxy", serverSide = "com.allaryin.kinkspring.net.CommonProxy")
+	public static CommonProxy	proxy;
+
 	public static Logger		log	= Logger.getLogger(Version.CHANNEL);
 
 	@EventHandler
@@ -28,20 +34,17 @@ public class Kinkspring {
 		log.setParent(FMLLog.getLogger());
 		log.info(Version.MOD_NAME + " - v" + Version.VERSION);
 
-		// load config
 		try {
-			Config.init(Loader.instance().getConfigDir(), Version.CHANNEL
-					+ ".cfg");
+			Config.init(event.getSuggestedConfigurationFile());
 		} catch (Exception e) {
-			e.printStackTrace();
-			log.warning("Unable to init config file.");
+			log.log(Level.SEVERE, "Unable to load config file...", e);
 		}
 
 		// TODO: register block id's
 		// TODO: register item id's
 		Config.save();
 
-		// TODO: proxy.preInit();
+		proxy.preInit();
 	}
 
 	@EventHandler

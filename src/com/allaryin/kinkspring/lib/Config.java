@@ -29,21 +29,14 @@ public enum Config {
 		_conf = null;
 	}
 
-	public static void init(File minecraftDir, String path) throws Exception {
+	public static void init(File file) throws Exception {
 		if (INSTANCE._conf != null) {
 			throw new Exception("Attempt to re-initialize.");
 		}
-		INSTANCE._init(minecraftDir, path);
+		INSTANCE._init(file);
 	}
 
-	private void _init(File minecraftDir, String path) {
-		final File file;
-		if (minecraftDir != null) {
-			file = new File(minecraftDir, path);
-		} else {
-			file = new File(path);
-		}		
-
+	private void _init(File file) {
 		_conf = new Configuration(file);
 		_conf.load();
 

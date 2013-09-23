@@ -1,0 +1,18 @@
+[
+{
+  "modid": "Kinkspring",
+  "name": "Kinkspring",
+  "version": "0.1.2",
+  "credits": "Mod name & many concepts borrowed from Paolo Bacigalupi",
+  "authors": [
+    "allaryin", "acius"
+  ],
+  "description": "A mechanical solution to mechanical energy storage.",
+  "url": "http://allaryin.com/kinkspring",
+  "updateUrl": "",
+  "logoFile": "",
+  "parent": "",
+  "screenshots": [
+  ]
+}
+]
