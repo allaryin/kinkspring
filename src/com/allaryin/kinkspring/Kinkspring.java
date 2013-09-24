@@ -36,26 +36,32 @@ public class Kinkspring {
 		log.info(Version.MOD_NAME + " - v" + Version.VERSION);
 
 		try {
-			Config.init(event.getSuggestedConfigurationFile());
+			/**
+			 * This is going to read the config file from disk, register block
+			 * and item id's, and write the result back out.
+			 */
+			Config.preInit(event.getSuggestedConfigurationFile());
 		} catch (Exception e) {
 			log.log(Level.SEVERE, "Unable to load config file...", e);
 		}
-
-		// TODO: register block id's
-		// TODO: register item id's
-		Config.save();
 
 		proxy.preInit();
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		// TODO: init localization
 		try {
 			Localization.init();
 		} catch (Exception e) {
 			log.log(Level.SEVERE, "Unable to initialize localization...", e);
 		}
+
+		/**
+		 * This is going to register all recipes.
+		 */
+		Config.init();
+
+		proxy.init();
 	}
 
 	@EventHandler

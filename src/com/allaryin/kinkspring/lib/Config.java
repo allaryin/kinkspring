@@ -4,6 +4,8 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
@@ -35,14 +37,18 @@ public enum Config {
 		_conf = null;
 	}
 
-	public static void init(File file) throws Exception {
+	public static void preInit(File file) throws Exception {
 		if (INSTANCE._conf != null) {
 			throw new Exception("Attempt to re-initialize.");
 		}
-		INSTANCE._init(file);
+		INSTANCE._preInit(file);
 	}
 
-	private void _init(File file) {
+	public static void init() {
+		INSTANCE._init();
+	}
+
+	private void _preInit(File file) {
 		_conf = new Configuration(file);
 		_conf.load();
 
@@ -53,7 +59,14 @@ public enum Config {
 
 		initItems();
 		initBlocks();
+
+		_conf.save();
+	}
+
+	private void _init() {
 		initRecipes();
+
+		_conf.save();
 	}
 
 	private void initItems() {
@@ -73,8 +86,14 @@ public enum Config {
 		Kinkspring.log.fine("Blocks done.");
 	}	
 	
-	private void initRecipes() {
+	public void initRecipes() {
 		Kinkspring.log.info("Initializing recipes...");
+		
+		GameRegistry.addRecipe(new ItemStack(Items.spring.item), new Object[] {
+				"---", "O*O", "---", '-', Item.ingotIron, 'O', Item.slimeBall,
+				'*', Item.redstone });
+		// TODO: redstone becomes an iron gear once BC4 is added
+		
 		Kinkspring.log.fine("Recipes done.");
 	}
 	
