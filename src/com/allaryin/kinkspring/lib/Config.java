@@ -4,8 +4,6 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 
@@ -31,6 +29,8 @@ public enum Config {
 	public static int		ITEM_PREFIX				= DEFAULT_ITEM_PREFIX;
 	
 	public static final String	TEXTURE_PATH			= "kinkspring";
+
+	public static final String	CATEGORY_RECIPE			= "recipe";
 
 	private Configuration _conf;
 	private Config() {
@@ -89,10 +89,21 @@ public enum Config {
 	public void initRecipes() {
 		Kinkspring.log.info("Initializing recipes...");
 		
-		GameRegistry.addRecipe(new ItemStack(Items.spring.item), new Object[] {
-				"---", "O*O", "---", '-', Item.ingotIron, 'O', Item.slimeBall,
-				'*', Item.redstone });
-		// TODO: redstone becomes an iron gear once BC4 is added
+		final Recipes[] recipes = Recipes.values();
+		for (int k = 0; k < recipes.length; ++k) {
+			final Recipes recipe = recipes[k];
+			final String name = recipe.name();
+
+			final Property propEnabled = _conf.get(CATEGORY_RECIPE, name
+					+ ".enabled", true);
+			if (!propEnabled.getBoolean(true)) {
+				Kinkspring.log.fine("Skipping recipe " + name
+						+ ", disabled in config");
+				return;
+			}
+
+			GameRegistry.addRecipe(recipe.getItemStack(), recipe.getRecipe());
+		}
 		
 		Kinkspring.log.fine("Recipes done.");
 	}
