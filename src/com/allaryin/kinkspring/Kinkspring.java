@@ -19,7 +19,7 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(name = Version.MOD_NAME, version = Version.VERSION, modid = Version.MOD_ID, useMetadata = false, acceptedMinecraftVersions = "[1.6,1.7)", dependencies = "required-after:Forge@[9.10.0.800,)")
+@Mod(name = Version.MOD_NAME, version = Version.VERSION, modid = Version.MOD_ID, useMetadata = false, acceptedMinecraftVersions = "[1.6,1.7)", dependencies = "required-after:Forge@[9.11.1.953,)")
 @NetworkMod(channels = { Version.CHANNEL }, clientSideRequired = true, serverSideRequired = false, packetHandler = KPacketHandler.class)
 public class Kinkspring {
 	@Instance(Version.CHANNEL)
