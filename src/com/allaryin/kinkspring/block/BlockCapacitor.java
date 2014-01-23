@@ -37,10 +37,12 @@ public class BlockCapacitor extends KBlock {
 	}
 	
 	public Icon getIcon(int side, int meta) {
-		ForgeDirection dir = ForgeDirection.getOrientation(side);
-		if( dir == ForgeDirection.UP )
+		final ForgeDirection dir = ForgeDirection.getOrientation(side);		
+		final ForgeDirection front = (meta != 0 ? ForgeDirection.getOrientation(meta) : ForgeDirection.UP);
+		final ForgeDirection back = front.getOpposite();		
+		if( dir == front )
 			return blockInput;
-		else if( dir == ForgeDirection.DOWN )
+		else if( dir == back )
 			return blockOutput;
 		return blockEmpty;
 	}

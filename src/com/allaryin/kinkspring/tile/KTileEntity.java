@@ -34,6 +34,7 @@ public class KTileEntity extends TileEntity {
 		if( _facing != facing ) {
 			_facing = facing;
 			System.out.println("Facing -> "+facing);
+			this.worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, _facing.ordinal(), 3);
 		}
 	}
 	
