@@ -177,6 +177,7 @@ public enum Config {
 
 		if (tileClass != null) {
 			block.setTileClass(tileClass);
+			GameRegistry.registerTileEntityWithAlternatives(tileClass, Version.MOD_NAME + "." + name, new String[] { name });
 		}
 		blockEnum.setBlock(block);
 		block.setEnumEntry(blockEnum);
